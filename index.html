@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/records.css">
     <link rel="stylesheet" href="css/modal.css">
     <script src="https://kit.fontawesome.com/ff3f97a4df.js" crossorigin="anonymous"></script>
-    <script src="main.js" defer></script>
+    <script src="script.js" defer></script>
     <title>CRUD</title>
 </head>
 <body>
@@ -21,7 +21,7 @@
         <h1 class="header-title">Customer Registration</h1>
     </header>
     <main>
-        <button type="button" class="button blue mobile" id="cadastrarCliente">Register Customer</button>
+        <button type="button" class="button blue mobile" id="registerCustomer">Register Customer</button>
         <table class="records">
             <thead>
                 <tr>
@@ -68,7 +68,7 @@
         <div class="modal" id="modal">
             <div class="modal-content">
                 <header class="modal-header">
-                    <h2>New Client</h2>
+                    <h2>New Customer</h2>
                     <span class="modal-close" id="modalClose">&#10006;</span>
                 </header>
                 <form class="modal-form">
@@ -78,8 +78,7 @@
                     <input type="text" class="modal-field" placeholder="Cidade do Cliente">
                 </form>
                 <footer class="modal-footer">
-                    <button class="button green">Save</button>
-                    <button class="button blue">Cancel</button>
+                    <button class="button blue" id="buttonSave">Save</button>
                 </footer>
             </div>
         </div>
