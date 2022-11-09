@@ -9,7 +9,7 @@ const closeModal = () => {
 }
 
 const temporaryCustomer = {
-    name: "Raisa",
+    name: "Nicholas",
     email: "raisa.rmro@gmail.com",
     phone: "1234598778",
     city: "Recife"
@@ -27,6 +27,22 @@ const createCustomer = (customer) => {
     setLocalStorage(dbCustomer)
 }
 
+//read
+const readCustomer = () => getLocalStorage();
+
+//update
+const updateCustomer = (index, customer) => {
+    const dbCustomer = readCustomer();
+    dbCustomer[index] = customer;
+    setLocalStorage(dbCustomer);
+}
+
+//delete
+const deleteCustomer = (index) => {
+    const dbCustomer = readCustomer();
+    dbCustomer.splice(index, 1);
+    setLocalStorage(dbCustomer);
+}
 
 //Events
 document.getElementById('registerCustomer').addEventListener('click', openModal);
