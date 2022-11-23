@@ -63,7 +63,7 @@ const saveRecord = () => {
     }
 }
 
-const createRow = (customer) => {
+const createRow = (customer, index) => {
     const newRow = document.createElement('tr');
     newRow.innerHTML = `
         <td>${customer.name}</td>
@@ -71,8 +71,8 @@ const createRow = (customer) => {
         <td>${customer.phone}</td>
         <td>${customer.city}</td>
         <td>
-            <button type="button" class="button-edit"><i class="fa-solid fa-pencil"></i></button>
-            <button type="button"class="button-delete"><i class="fa-solid fa-trash"></i></button>
+            <button type="button" class="button-edit" data-action="edit"><i class="fa-solid fa-pencil" id="edit-${index}"></i></button>
+            <button type="button"class="button-delete" data-action="delete"><i class="fa-solid fa-trash" id="delete-${index}"></i></button>
         </td>
     `
     document.querySelector('#tableCustomer>tbody').appendChild(newRow)
@@ -90,8 +90,29 @@ const updateTable = () => {
     dbCustomer.forEach(createRow)
 }
 
-updateTable();
+const fillFields = (customer) => {
+    document.getElementById('name').value = customer.name;
+    document.getElementById('email').value = customer.email;
+    document.getElementById('phone').value = customer.phone;
+    document.getElementById('city').value = customer.city;
+}
 
+const editCustomer = (index) => {
+    const customer = readCustomer()[index]
+    fillFields(customer)
+    openModal();
+}
+
+const editDelete = (event) => {
+    const [action, index] = event.target.id.split('-')  // console.log(event.target.dataset.action)
+        if(action == 'edit'){
+            editCustomer(index)
+        } else if (action == 'delete'){
+            console.log('excluindo...')
+        }    
+}
+
+updateTable();
 
 
 //Events
@@ -99,3 +120,4 @@ document.getElementById('registerCustomer').addEventListener('click', openModal)
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('saveButton').addEventListener('click', saveRecord);
 document.getElementById('clearButton').addEventListener('click', clearFields);
+document.querySelector('#tableCustomer>tbody').addEventListener('click', editDelete);
