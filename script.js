@@ -57,9 +57,17 @@ const saveRecord = () => {
             phone: document.getElementById('phone').value,
             city: document.getElementById('city').value
         }
-        createCustomer(customer);
-        updateTable();
-        closeModal();
+        const index = document.getElementById('name').dataset.index;
+        if(index == 'new'){
+            createCustomer(customer);
+            updateTable();
+            closeModal();
+        }else{
+            updateCustomer(index, customer);
+            updateTable();
+            closeModal();
+        }
+        
     }
 }
 
@@ -95,10 +103,12 @@ const fillFields = (customer) => {
     document.getElementById('email').value = customer.email;
     document.getElementById('phone').value = customer.phone;
     document.getElementById('city').value = customer.city;
+    document.getElementById('name').dataset.index = customer.index;
 }
 
 const editCustomer = (index) => {
     const customer = readCustomer()[index]
+    customer.index = index;
     fillFields(customer)
     openModal();
 }
@@ -108,7 +118,12 @@ const editDelete = (event) => {
         if(action == 'edit'){
             editCustomer(index)
         } else if (action == 'delete'){
-            console.log('excluindo...')
+            const customer = readCustomer()[index];
+            const response = confirm(`Are you sure you want to delete customer ${customer.name}`)
+            if(response){
+                deleteCustomer(index);
+                updateTable();
+            } 
         }    
 }
 
